@@ -36,7 +36,8 @@ a:hover {
 }
 
 .section-alt {
-    background: radial-gradient(circle at top left, #1f2937 0, #030712 60%);
+    background: radial-gradient(circle at top left, #1f2937 0, #010614 60%);
+    border-radius: 1.5rem;
 }
 
 .section-header {
