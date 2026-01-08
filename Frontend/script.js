@@ -16,6 +16,22 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then((html) => {
                 el.innerHTML = html;
+                if (file === 'contact.html') {
+                    const contactForm = el.querySelector('.contact-form');
+                    if (contactForm) {
+                        contactForm.addEventListener('submit', function(event) {
+                            event.preventDefault();
+                            // Replace with your EmailJS service ID, template ID, and public key
+                            emailjs.sendForm('service_zw5cv9q', 'template_whb1drf', this, 'FTaakuNdXBJUWRfKV')
+                                .then(function() {
+                                    alert('Message sent successfully!');
+                                    contactForm.reset();
+                                }, function(error) {
+                                    alert('Failed to send message: ' + error.text);
+                                });
+                        });
+                    }
+                }
             })
             .catch((error) => {
                 console.error(error);
