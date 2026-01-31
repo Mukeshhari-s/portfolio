@@ -13,8 +13,257 @@ body {
     background-color: #050816;
     color: #e5e7eb;
     line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* Solar System Background */
+.solar-system-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #0a0e27 0%, #050816 70%);
+    z-index: -1;
+    pointer-events: none;
+    transition: background 0.4s ease;
+}
+
+.star {
+    position: absolute;
+    background: radial-gradient(circle, #ffffff, rgba(255,255,255,0));
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.sun {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #ffd700, #ffaa00, #ff6600);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(255, 200, 0, 0.8), 0 0 100px rgba(255, 150, 0, 0.5);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+}
+
+.planet.mercury {
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at 35% 35%, #d3d3d3, #6b6b6b);
+    box-shadow: 0 0 6px rgba(211, 211, 211, 0.4), inset -1px -1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.planet.venus {
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle at 35% 35%, #ffd89b, #d4a574);
+    box-shadow: 0 0 10px rgba(255, 200, 100, 0.5), inset -1px -1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.planet.earth {
+    width: 15px;
+    height: 15px;
+    background: radial-gradient(circle at 35% 35%, #4a9eff 0%, #2e5aa0 50%, #1a3a5f 100%);
+    box-shadow: 0 0 12px rgba(74, 158, 255, 0.6), inset -1px -1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.planet.mars {
+    width: 11px;
+    height: 11px;
+    background: radial-gradient(circle at 35% 35%, #e27b58, #c41e3a);
+    box-shadow: 0 0 8px rgba(226, 123, 88, 0.5), inset -1px -1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.planet.jupiter {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 35% 35%, #f5c75f 0%, #d4a540 30%, #c48630 60%, #8b6914 100%);
+    box-shadow: 0 0 25px rgba(245, 199, 95, 0.6), inset -2px -2px 4px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.planet.jupiter::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    background: rgba(139, 69, 19, 0.3);
+    border-radius: 50%;
+    top: 20px;
+    left: 0;
+}
+
+.planet.jupiter::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    background: rgba(101, 50, 15, 0.25);
+    border-radius: 50%;
+    top: 35px;
+    left: 0;
+}
+
+.planet.saturn {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle at 35% 35%, #fad5a5 0%, #f4d47e 40%, #d4a574 70%, #8b6f47 100%);
+    box-shadow: 0 0 20px rgba(244, 212, 126, 0.5), inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.planet.uranus {
+    width: 28px;
+    height: 28px;
+    background: radial-gradient(circle at 35% 35%, #b5e3e3 0%, #7dd8d8 40%, #5ec4c4 70%, #3a9a9a 100%);
+    box-shadow: 0 0 15px rgba(125, 216, 216, 0.5), inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.planet.neptune {
+    width: 26px;
+    height: 26px;
+    background: radial-gradient(circle at 35% 35%, #6b93d6 0%, #4f6db3 40%, #3d5a96 70%, #2a4073 100%);
+    box-shadow: 0 0 15px rgba(79, 109, 179, 0.5), inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.saturn-ring {
+    position: absolute;
+    width: 75px;
+    height: 18px;
+    border: 3px solid rgba(200, 180, 140, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(75deg);
+    animation: orbit-saturn 1075s linear infinite;
+}
+
+@keyframes orbit-mercury {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(90px) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(90px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit-venus {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(130px) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(130px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit-earth {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(180px) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(180px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit-mars {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(240px) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(240px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit-jupiter {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(360px) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(360px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit-saturn {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(425px) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(425px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit-uranus {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(500px) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(500px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit-neptune {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(600px) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(600px) rotate(-360deg);
+    }
+}
+
+.planet.mercury {
+    animation: orbit-mercury 21s linear infinite;
+}
+
+.planet.venus {
+    animation: orbit-venus 22.5s linear infinite;
+}
+
+.planet.earth {
+    animation: orbit-earth 36.5s linear infinite;
+}
+
+.planet.mars {
+    animation: orbit-mars 68.8s linear infinite;
+}
+
+.planet.jupiter {
+    animation: orbit-jupiter 200s linear infinite;
+}
+
+.planet.saturn {
+    animation: orbit-saturn 350s linear infinite;
+}
+
+.saturn-ring {
+    animation: orbit-saturn 350s linear infinite;
+}
+.planet.uranus {
+    animation: orbit-uranus 700s linear infinite;
+}
+
+.planet.neptune {
+    animation: orbit-neptune 900s linear infinite;
+}
 img {
     max-width: 100%;
     display: block;
@@ -38,6 +287,7 @@ a:hover {
 .section-alt {
     background: radial-gradient(circle at top left, #1f2937 0, #010614 60%);
     border-radius: 1.5rem;
+    transition: background 0.4s ease;
 }
 
 .section-header {
@@ -60,6 +310,7 @@ a:hover {
     backdrop-filter: blur(14px);
     background: rgba(3, 7, 18, 0.86);
     border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    transition: background 0.4s ease, border-color 0.4s ease;
 }
 
 .navbar {
@@ -341,6 +592,7 @@ a:hover {
     border-radius: 1rem;
     background: rgba(15, 23, 42, 0.95);
     border: 1px solid rgba(148, 163, 184, 0.4);
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .card:hover {
@@ -527,4 +779,475 @@ a:focus-visible {
     .contact-grid {
         grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
     }
+}
+
+/* Theme Toggle Button - Realistic Bulb */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: none;
+    background: transparent;
+    color: #ffd700;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle i {
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 15px rgba(255, 180, 0, 0.6)) drop-shadow(0 0 25px rgba(255, 150, 0, 0.4));
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover i {
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 1)) drop-shadow(0 0 25px rgba(255, 180, 0, 0.9)) drop-shadow(0 0 40px rgba(255, 150, 0, 0.6));
+    transform: scale(1.1);
+}
+
+/* Light theme - bulb is "on" (brighter glow) */
+body.light-theme .theme-toggle {
+    color: #ffcc00;
+}
+
+body.light-theme .theme-toggle i {
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)) drop-shadow(0 0 30px rgba(255, 200, 0, 0.9)) drop-shadow(0 0 50px rgba(255, 180, 0, 0.7)) drop-shadow(0 0 70px rgba(255, 150, 0, 0.5));
+}
+
+body.light-theme .theme-toggle:hover i {
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1)) drop-shadow(0 0 40px rgba(255, 200, 0, 1)) drop-shadow(0 0 60px rgba(255, 180, 0, 0.8)) drop-shadow(0 0 90px rgba(255, 150, 0, 0.6));
+}
+
+/* Light Theme */
+body.light-theme {
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+body.light-theme .solar-system-bg {
+    background: radial-gradient(ellipse at center, #e0f2fe 0%, #f0f9ff 70%);
+}
+
+body.light-theme .orbit {
+    border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+body.light-theme .star {
+    opacity: 0.3;
+}
+
+body.light-theme .site-header {
+    background: rgba(248, 250, 252, 0.9);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+body.light-theme .nav-social a {
+    background: rgba(241, 245, 249, 0.9);
+    border-color: rgba(148, 163, 184, 0.5);
+    color: #334155;
+}
+
+body.light-theme .nav-social a:hover {
+    background: linear-gradient(135deg, #38bdf8, #22c55e);
+    color: #fff;
+}
+
+body.light-theme .section-alt {
+    background: radial-gradient(circle at top left, #e2e8f0 0, #f1f5f9 60%);
+}
+
+body.light-theme .section-header p,
+body.light-theme .hero-kicker,
+body.light-theme .hero-subtitle,
+body.light-theme .timeline-meta,
+body.light-theme .card-meta,
+body.light-theme .form-note,
+body.light-theme .site-footer {
+    color: #64748b;
+}
+
+body.light-theme .card,
+body.light-theme .contact-form,
+body.light-theme .about-highlights li,
+body.light-theme .skill-group li {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(148, 163, 184, 0.4);
+}
+
+body.light-theme .card-text {
+    color: #475569;
+}
+
+body.light-theme .avatar-placeholder {
+    box-shadow: 0 25px 60px rgba(148, 163, 184, 0.4);
+}
+
+body.light-theme .btn.secondary {
+    background: rgba(241, 245, 249, 0.9);
+    border-color: rgba(148, 163, 184, 0.7);
+    color: #334155;
+}
+
+body.light-theme .btn.secondary:hover {
+    background: rgba(226, 232, 240, 1);
+}
+
+body.light-theme input,
+body.light-theme textarea {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(148, 163, 184, 0.5);
+    color: #1e293b;
+}
+
+body.light-theme .nav-toggle {
+    border-color: rgba(100, 116, 139, 0.7);
+}
+
+body.light-theme .nav-toggle span {
+    background: #334155;
+}
+
+body.light-theme .timeline-item {
+    border-left-color: rgba(100, 116, 139, 0.5);
+}
+
+@media (max-width: 768px) {
+    body.light-theme .nav-links {
+        background: rgba(248, 250, 252, 0.97);
+        border-bottom-color: rgba(148, 163, 184, 0.4);
+    }
+}
+
+/* Scroll animations removed per user request */
+
+/* ========== FLOATING PARTICLES ========== */
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ========== BACK TO TOP BUTTON ========== */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #22c55e);
+    color: #020617;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(34, 197, 94, 0.6);
+}
+
+/* ========== RESUME DOWNLOAD BUTTON ========== */
+.resume-btn {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.resume-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6);
+}
+
+.resume-btn i {
+    animation: bounce-download 2s ease-in-out infinite;
+}
+
+@keyframes bounce-download {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* ========== INTERACTIVE TIMELINE ========== */
+.timeline-interactive {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-interactive::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #38bdf8, #22c55e);
+    border-radius: 3px;
+}
+
+.timeline-item-interactive {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -26px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #22c55e);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+    z-index: 1;
+}
+
+.timeline-content {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-header {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.timeline-header:hover {
+    background: rgba(56, 189, 248, 0.1);
+}
+
+.timeline-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.timeline-header h3 i {
+    color: #38bdf8;
+}
+
+.timeline-toggle {
+    color: #9ca3af;
+    transition: transform 0.3s ease;
+}
+
+.timeline-item-interactive[data-expanded="true"] .timeline-toggle {
+    transform: rotate(180deg);
+}
+
+.timeline-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    padding: 0 1.5rem;
+}
+
+.timeline-item-interactive[data-expanded="true"] .timeline-details {
+    max-height: 500px;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.education-card {
+    padding: 1rem;
+    background: rgba(56, 189, 248, 0.05);
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+    border-left: 3px solid #38bdf8;
+}
+
+.education-card:last-child {
+    margin-bottom: 0;
+}
+
+.education-card h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    color: #e5e7eb;
+}
+
+.education-card .timeline-meta,
+.education-card .timeline-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-right: 1rem;
+}
+
+.education-card .timeline-score i {
+    color: #fbbf24;
+}
+
+/* ========== BADGES/ACHIEVEMENTS ========== */
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.badge-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.badge-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.badge-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.badge-icon::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.badge-icon.mongodb {
+    background: linear-gradient(135deg, #00ed64, #00684a);
+    box-shadow: 0 8px 25px rgba(0, 237, 100, 0.4);
+}
+
+.badge-icon.oracle {
+    background: linear-gradient(135deg, #f80000, #c74634);
+    box-shadow: 0 8px 25px rgba(248, 0, 0, 0.4);
+}
+
+.badge-content h4 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    color: #e5e7eb;
+}
+
+.badge-content p {
+    font-size: 0.85rem;
+    color: #9ca3af;
+}
+
+.badge-ribbon {
+    position: absolute;
+    top: -10px;
+    right: -30px;
+    width: 100px;
+    height: 30px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    transform: rotate(45deg);
+    box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4);
+}
+
+.badge-ribbon::before {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    color: #020617;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* Light theme adjustments for new features */
+body.light-theme .timeline-content,
+body.light-theme .badge-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(148, 163, 184, 0.4);
+}
+
+body.light-theme .education-card {
+    background: rgba(56, 189, 248, 0.08);
+}
+
+body.light-theme .education-card h4,
+body.light-theme .badge-content h4 {
+    color: #1e293b;
+}
+
+body.light-theme .back-to-top {
+    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+}
+
+body.light-theme .particle {
+    background: rgba(56, 189, 248, 0.3) !important;
 }
